@@ -21,7 +21,7 @@ const LoginPage = () => {
         ApiService.saveToken(res.token)
         ApiService.saveRole(res.role)
         setMessage(res.message)
-        navigate("/dashboard")
+        navigate("/profile")
       }
     } catch (error) {
       showMessage(

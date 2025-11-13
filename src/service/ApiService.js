@@ -110,6 +110,59 @@ export default class ApiService {
 
 
 
+    //Supply Endpoints
+    static async addSupply(formData) {
+        const response = await axios.post(`${this.BASE_URL}/supplies/add`, formData, {
+            headers: {
+                ...this.getHeader(),
+                "Content-Type": "multipart/form-data"
+            }
+        });
+        return response.data;
+    }
+
+    static async updateSupply(formData) {
+
+        const response = await axios.put(`${this.BASE_URL}/supplies/update`, formData, {
+            headers: {
+                ...this.getHeader(),
+                "Content-Type": "multipart/form-data"
+            }
+        });
+        return response.data;
+    }
+
+    static async getAllSupplies() {
+        const response = await axios.get(`${this.BASE_URL}/supplies/all`, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+    static async getSupplyById(supplyId) {
+        const response = await axios.get(`${this.BASE_URL}/supplies/${supplyId}`, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+    static async searchSupply(searchValue) {
+        const response = await axios.get(`${this.BASE_URL}/supplies/search`, {
+            params: { searchValue },
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+    static async deleteSupply(supplyId) {
+        const response = await axios.delete(`${this.BASE_URL}/supplies/delete/${supplyId}`, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+
+
 
 
 
