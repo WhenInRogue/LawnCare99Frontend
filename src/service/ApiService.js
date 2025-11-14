@@ -1,5 +1,6 @@
 import axios from "axios";
 import CryptoJS from "crypto-js";
+import { data } from "react-router-dom";
 
 export default class ApiService {
 
@@ -111,22 +112,22 @@ export default class ApiService {
 
 
     //Supply Endpoints
-    static async addSupply(formData) {
-        const response = await axios.post(`${this.BASE_URL}/supplies/add`, formData, {
+    static async createSupply(supplyData) {
+        const response = await axios.post(`${this.BASE_URL}/supplies/add`, supplyData, {
             headers: {
                 ...this.getHeader(),
-                "Content-Type": "multipart/form-data"
+                "Accept": "application/json"
             }
         });
         return response.data;
     }
+//broken
+    static async updateSupply(supplyId, supplyData) {
 
-    static async updateSupply(formData) {
-
-        const response = await axios.put(`${this.BASE_URL}/supplies/update`, formData, {
+        const response = await axios.put(`${this.BASE_URL}/supplies/update/${supplyId}`, supplyData, {
             headers: {
                 ...this.getHeader(),
-                "Content-Type": "multipart/form-data"
+                "Accept": "application/json"
             }
         });
         return response.data;

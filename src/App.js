@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import DashboardPage from "./pages/DashboardPage";
 import SupplyPage from "./pages/SupplyPage";
+import AddEditSupplyPage from "./pages/AddEditSupplyPage";
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
 
         {/* ADMIN ROUTES */}
         <Route path="/supply" element={<AdminRoute element={<SupplyPage/>}/>}/>
+        <Route path="/add-supply" element={<AdminRoute element={<AddEditSupplyPage/>}/>}/>
+        <Route path="/edit-supply/:supplyId" element={<AdminRoute element={<AddEditSupplyPage/>}/>}/>
 
 
           {/* ADMIN AND MANAGERS ROUTES */}
