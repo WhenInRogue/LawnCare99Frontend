@@ -166,6 +166,51 @@ export default class ApiService {
 
 
 
+    //Supply Transactions Endpoints
+    static async checkInSupply(body) {
+        const response = await axios.post(`${this.BASE_URL}/supplyTransactions/checkInSupply`, body, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
+    static async checkOutSupply(body) {
+        const response = await axios.post(`${this.BASE_URL}/supplyTransactions/checkOutSupply`, body, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
+    static async getAllSupplyTransactions(filter) {
+        const response = await axios.get(`${this.BASE_URL}/supplyTransactions/all`, {
+            headers: this.getHeader(),
+            params: { filter },
+        });
+        return response.data;
+    }
+
+    static async getSupplyTransactionsByMonthAndYear(month, year) {
+        const response = await axios.get(`${this.BASE_URL}/supplyTransactions/by-month-year`, {
+            headers: this.getHeader(),
+            params: {
+                month: month,
+                year: year
+            }
+        });
+        return response.data;
+    }
+
+    static async getSupplyTransactionById(supplyTransactionId) {
+        const response = await axios.get(`${this.BASE_URL}/supplyTransactions/${supplyTransactionId}`, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+
+
+
+
 
     /**AUTHENTICATION CHECKER */
     static logout(){

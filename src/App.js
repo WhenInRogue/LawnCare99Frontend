@@ -7,6 +7,10 @@ import ProfilePage from "./pages/ProfilePage";
 import DashboardPage from "./pages/DashboardPage";
 import SupplyPage from "./pages/SupplyPage";
 import AddEditSupplyPage from "./pages/AddEditSupplyPage";
+import CheckInSupplyPage from "./pages/CheckInSupplyPage";
+import CheckOutSupplyPage from "./pages/CheckOutSupplyPage";
+import SupplyTransactionsPage from "./pages/SupplyTransactionsPage";
+import SupplyTransactionDetailsPage from "./pages/SupplyTransactionDetailsPage";
 
 
 function App() {
@@ -23,6 +27,10 @@ function App() {
 
 
           {/* ADMIN AND MANAGERS ROUTES */}
+          <Route path="/checkInSupply" element={<ProtectedRoute element={<CheckInSupplyPage/>}/>}/>
+          <Route path="/checkOutSupply" element={<ProtectedRoute element={<CheckOutSupplyPage/>}/>}/>
+          <Route path="/supplyTransactions" element={<ProtectedRoute element={<SupplyTransactionsPage/>}/>}/>
+          <Route path="/supplyTransactions/:supplyTransactionId" element={<ProtectedRoute element={<SupplyTransactionDetailsPage/>}/>}/>
 
 
           <Route path="/profile" element={<ProtectedRoute element={<ProfilePage/>}/>}/>
