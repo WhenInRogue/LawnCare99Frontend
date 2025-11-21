@@ -32,6 +32,8 @@ function App() {
           <Route path="/supplyTransactions" element={<ProtectedRoute element={<SupplyTransactionsPage/>}/>}/>
           <Route path="/supplyTransactions/:supplyTransactionId" element={<ProtectedRoute element={<SupplyTransactionDetailsPage/>}/>}/>
 
+          <Route path="/dashboard" element={<ProtectedRoute element={<DashboardPage/>}/>}/>
+
 
           <Route path="/profile" element={<ProtectedRoute element={<ProfilePage/>}/>}/>
           {/* <Route path="/dashboard" element={<ProtectedRoute element={<DashboardPage/>}/>}/> */}
