@@ -11,6 +11,8 @@ import CheckInSupplyPage from "./pages/CheckInSupplyPage";
 import CheckOutSupplyPage from "./pages/CheckOutSupplyPage";
 import SupplyTransactionsPage from "./pages/SupplyTransactionsPage";
 import SupplyTransactionDetailsPage from "./pages/SupplyTransactionDetailsPage";
+import EquipmentPage from "./pages/EquipmentPage";
+import AddEditEquipmentPage from "./pages/AddEditEquipmentPage";
 
 
 function App() {
@@ -24,6 +26,10 @@ function App() {
         <Route path="/supply" element={<AdminRoute element={<SupplyPage/>}/>}/>
         <Route path="/add-supply" element={<AdminRoute element={<AddEditSupplyPage/>}/>}/>
         <Route path="/edit-supply/:supplyId" element={<AdminRoute element={<AddEditSupplyPage/>}/>}/>
+
+        <Route path="/equipment" element={<AdminRoute element={<EquipmentPage/>}/>}/>
+        <Route path="/add-equipment" element={<AdminRoute element={<AddEditEquipmentPage/>}/>}/>
+        <Route path="/edit-equipment/:equipmentId" element={<AdminRoute element={<AddEditEquipmentPage/>}/>}/>
 
 
           {/* ADMIN AND MANAGERS ROUTES */}

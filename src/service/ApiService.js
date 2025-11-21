@@ -164,6 +164,45 @@ export default class ApiService {
 
 
 
+    //Equipment Endpoints
+    static async createEquipment(equipmentData) {
+        const response = await axios.post(`${this.BASE_URL}/equipment/add`, equipmentData, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
+    static async getAllEquipment() {
+        const response = await axios.get(`${this.BASE_URL}/equipment/all`, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
+
+    static async getEquipmentById(equipmentId) {
+        const response = await axios.get(`${this.BASE_URL}/equipment/${equipmentId}`, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
+    static async updateEquipment(equipmentId, equipmentData) {
+        const response = await axios.put(`${this.BASE_URL}/equipment/update/${equipmentId}`, equipmentData, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
+    static async deleteEquipment(equipmentId) {
+        const response = await axios.delete(`${this.BASE_URL}/equipment/delete/${equipmentId}`, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
+
+
 
 
     //Supply Transactions Endpoints
