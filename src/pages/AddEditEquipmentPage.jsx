@@ -7,7 +7,7 @@ const AddEditEquipmentPage = () => {
     const { equipmentId} = useParams("");
     const [name, setName] = useState("");
     const [totalHours, setTotalHours] = useState("");
-    const [equipmentStatus, setEquipmentStatus] = useState("");
+    const [equipmentStatus, setEquipmentStatus] = useState(null);
     const [lastCheckOutTime, setLastCheckOutTime] = useState("");
     const [description, setDescription] = useState("");
     const [isEditing, setIsEditing] = useState(false);

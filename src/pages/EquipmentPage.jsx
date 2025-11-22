@@ -21,10 +21,10 @@ const EquipmentPage = () => {
                 const equipmentData = await ApiService.getAllEquipment();
 
                 if (equipmentData.status === 200) {
-                    setTotalPages(Math.ceil(equipmentData.equipment.length / itemsPerPage));
+                    setTotalPages(Math.ceil(equipmentData.equipments.length / itemsPerPage));
 
                     setEquipment(
-                        equipmentData.equipment.slice(
+                        equipmentData.equipments.slice(
                             (currentPage - 1) * itemsPerPage,
                             currentPage * itemsPerPage
                         )
@@ -83,7 +83,6 @@ const EquipmentPage = () => {
             {equipment && (
                 <div className="product-list">
                     {equipment.map((equipment) => (
-                                    //does this need to be equipmentID?
                       <div key={equipment.equipmentId} className="product-item">
                           <div className="product-info">
                             <h3 className="name">{equipment.name}</h3>
