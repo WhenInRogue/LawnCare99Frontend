@@ -9,6 +9,7 @@ const AddEditEquipmentPage = () => {
     const [totalHours, setTotalHours] = useState("");
     const [equipmentStatus, setEquipmentStatus] = useState(null);
     const [lastCheckOutTime, setLastCheckOutTime] = useState("");
+    const [maintenanceIntervalHours, setMaintenanceIntervalHours] = useState("");
     const [description, setDescription] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [message, setMessage] = useState("");
@@ -26,6 +27,7 @@ const AddEditEquipmentPage = () => {
                         setTotalHours(equipmentData.equipment.totalHours);
                         setEquipmentStatus(equipmentData.equipment.equipmentStatus);
                         setLastCheckOutTime(equipmentData.equipment.lastCheckOutTime);
+                        setMaintenanceIntervalHours(equipmentData.equipment.maintenanceIntervalHours);
                         setDescription(equipmentData.equipment.description);
                     } else {
                         showMessage(equipmentData.message);
@@ -57,6 +59,7 @@ const AddEditEquipmentPage = () => {
         totalHours,
         equipmentStatus,
         lastCheckOutTime,
+        maintenanceIntervalHours,
         description
     };
 
@@ -102,6 +105,16 @@ const AddEditEquipmentPage = () => {
                             type="text"
                             value={totalHours}
                             onChange={(e) => setTotalHours(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Maintenance Interval (Hours)</label>
+                        <input
+                            type="text"
+                            value={maintenanceIntervalHours}
+                            onChange={(e) => setMaintenanceIntervalHours(e.target.value)}
                             required
                         />
                     </div>

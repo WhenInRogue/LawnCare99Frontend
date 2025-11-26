@@ -87,6 +87,7 @@ const EquipmentPage = () => {
                           <div className="product-info">
                             <h3 className="name">{equipment.name}</h3>
                             <p className="totalHours">Total Hours: {equipment.totalHours}</p>
+                            <p className="maintenanceIntervalHours">Maintenance Interval (Hours): {equipment.maintenanceIntervalHours}</p>
                             <p className="status">Current Status: {equipment.equipmentStatus}</p>
                             <p className="lastCheckOutTime">Last Check-Out: {equipment.lastCheckOutTime}</p>
                           </div>
