@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../component/Layout";
 import ApiService from "../service/ApiService";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutEquipmentPage = () => {
     const [equipment, setEquipment] = useState([]);
@@ -8,6 +9,8 @@ const CheckOutEquipmentPage = () => {
     const [note, setNote] = useState("");
     const [totalHoursInput, setTotalHoursInput] = useState("");
     const [message, setMessage] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
             const fetchEquipment = async () => {
@@ -33,7 +36,7 @@ const CheckOutEquipmentPage = () => {
         }
         const body = {
             equipmentId,
-            totalHours: parseFloat(totalHoursInput),
+            totalHoursInput: parseFloat(totalHoursInput),
             note,
         };
         console.log(body)
@@ -62,6 +65,11 @@ const CheckOutEquipmentPage = () => {
             setMessage("");
         }, 4000);
     };
+
+    //Navigate to Check-Out Supply Page
+    const navigateToCheckOutSupplyPage = () => {
+    navigate(`/checkOutSupply`);
+    }
 
     return (
     <Layout>
@@ -109,6 +117,11 @@ const CheckOutEquipmentPage = () => {
           <button type="submit">Check-Out Equipment</button>
         </form>
       </div>
+
+      <div className="checkin-equipment-btn-container">
+        <button onClick={navigateToCheckOutSupplyPage}>Check-Out Supply</button>
+      </div>
+      
     </Layout>
     );
 

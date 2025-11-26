@@ -559,6 +559,32 @@ button[type="submit"]:hover {
 
 
 
+/* Navigation buttons within check-in and check-out pages */
+.checkin-equipment-btn-container {
+  max-width: 600px;          /* Same as .purchase-form-page */
+  margin: 0 auto;            /* Centers it under the form */
+  margin-top: 20px;
+}
+
+.checkin-equipment-btn-container button {
+  width: 100%;               /* Make button full width */
+  padding: 12px;
+  font-size: 16px;
+  background-color: #008080;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.checkin-equipment-btn-container button:hover {
+  background-color: #2F4F4F;
+}
+
+
+
+
+
 
 
 

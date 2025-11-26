@@ -34,31 +34,19 @@ const Sidebar = () => {
 
         {isAuth && (
           <li>
-            <Link to="/checkInSupply">Check-In Supplies</Link>
+            <Link to="/checkInSupply">Check-In</Link>
           </li>
         )}
 
         {isAuth && (
           <li>
-            <Link to="/checkOutSupply">Check-out Supplies</Link>
+            <Link to="/checkOutSupply">Check-out</Link>
           </li>
         )}
 
         {isAdmin && (
           <li>
             <Link to="/equipment">Equipment</Link>
-          </li>
-        )}
-
-        {isAuth && (
-          <li>
-            <Link to="/checkOutEquipment">Check-out Equipment</Link>
-          </li>
-        )}
-
-        {isAuth && (
-          <li>
-            <Link to="/checkInEquipment">Check-In Equipment</Link>
           </li>
         )}
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../component/Layout";
 import ApiService from "../service/ApiService";
+import { useNavigate } from "react-router-dom";
 
 const CheckInSupplyPage = () => {
     const [supplies, setSupplies] = useState([]);
@@ -8,6 +9,8 @@ const CheckInSupplyPage = () => {
     const [note, setNote] = useState("");
     const [quantity, setQuantity] = useState("");
     const [message, setMessage] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchSupplies = async () => {
@@ -63,6 +66,11 @@ const CheckInSupplyPage = () => {
         }, 4000);
     };
 
+    //Navigate to Check-In Equipment Page
+  const navigateToCheckInEquipmentPage = () => {
+    navigate(`/checkInEquipment`);
+  }
+
     return (
     <Layout>
       {message && <div className="message">{message}</div>}
@@ -109,6 +117,11 @@ const CheckInSupplyPage = () => {
           <button type="submit">Check-In Supply</button>
         </form>
       </div>
+
+      <div className="checkin-equipment-btn-container">
+        <button onClick={navigateToCheckInEquipmentPage}>Check-In Equipment</button>
+      </div>
+
     </Layout>
     );
 };

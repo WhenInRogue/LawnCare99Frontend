@@ -47,7 +47,6 @@ function App() {
 
 
           <Route path="/profile" element={<ProtectedRoute element={<ProfilePage/>}/>}/>
-          {/* <Route path="/dashboard" element={<ProtectedRoute element={<DashboardPage/>}/>}/> */}
 
 
           //catch-all route, redirects users to the login page when they enter an invalid path

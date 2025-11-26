@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../component/Layout";
 import ApiService from "../service/ApiService";
+import { useNavigate } from "react-router-dom";
 
 const CheckInEquipmentPage = () => {
     const [equipment, setEquipment] = useState([]);
@@ -8,6 +9,8 @@ const CheckInEquipmentPage = () => {
     const [note, setNote] = useState("");
     const [totalHoursInput, setTotalHoursInput] = useState("");
     const [message, setMessage] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchEquipment = async () => {
@@ -63,6 +66,11 @@ const CheckInEquipmentPage = () => {
         }, 4000);
     };
 
+    //Navigate to Check-In Supply Page
+  const navigateToCheckInSupplyPage = () => {
+    navigate(`/checkInSupply`);
+  }
+
     return (
     <Layout>
       {message && <div className="message">{message}</div>}
@@ -109,6 +117,11 @@ const CheckInEquipmentPage = () => {
           <button type="submit">Check-In Equipment</button>
         </form>
       </div>
+
+      <div className="checkin-equipment-btn-container">
+        <button onClick={navigateToCheckInSupplyPage}>Check-In Supply</button>
+      </div>
+      
     </Layout>
     );
 
