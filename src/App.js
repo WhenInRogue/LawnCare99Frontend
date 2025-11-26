@@ -13,6 +13,8 @@ import SupplyTransactionsPage from "./pages/SupplyTransactionsPage";
 import SupplyTransactionDetailsPage from "./pages/SupplyTransactionDetailsPage";
 import EquipmentPage from "./pages/EquipmentPage";
 import AddEditEquipmentPage from "./pages/AddEditEquipmentPage";
+import CheckInEquipmentPage from "./pages/CheckInEquipmentPage";
+import CheckOutEquipmentPage from "./pages/CheckOutEquipmentPage";
 
 
 function App() {
@@ -37,6 +39,9 @@ function App() {
           <Route path="/checkOutSupply" element={<ProtectedRoute element={<CheckOutSupplyPage/>}/>}/>
           <Route path="/supplyTransactions" element={<ProtectedRoute element={<SupplyTransactionsPage/>}/>}/>
           <Route path="/supplyTransactions/:supplyTransactionId" element={<ProtectedRoute element={<SupplyTransactionDetailsPage/>}/>}/>
+
+          <Route path="/checkInEquipment" element={<ProtectedRoute element={<CheckInEquipmentPage/>}/>}/>
+          <Route path="/checkOutEquipment" element={<ProtectedRoute element={<CheckOutEquipmentPage/>}/>}/>
 
           <Route path="/dashboard" element={<ProtectedRoute element={<DashboardPage/>}/>}/>
 

@@ -121,7 +121,7 @@ export default class ApiService {
         });
         return response.data;
     }
-//broken
+
     static async updateSupply(supplyId, supplyData) {
 
         const response = await axios.put(`${this.BASE_URL}/supplies/update/${supplyId}`, supplyData, {
@@ -198,6 +198,51 @@ export default class ApiService {
         const response = await axios.delete(`${this.BASE_URL}/equipment/delete/${equipmentId}`, {
             headers: this.getHeader()
         })
+        return response.data;
+    }
+
+
+
+
+
+    //Equipment Transactions Endpoints
+    static async checkInEquipment(body) {
+        const response = await axios.post(`${this.BASE_URL}/equipmentTransactions/checkInEquipment`, body, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
+    static async checkOutEquipment(body) {
+        const response = await axios.post(`${this.BASE_URL}/equipmentTransactions/checkOutEquipment`, body, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
+    static async getAllEquipmentTransactions(equipmentTransactionFilter) {
+        const response = await axios.get(`${this.BASE_URL}/equipmentTransactions/all`, {
+            headers: this.getHeader(),
+            params: { equipmentTransactionFilter },
+        });
+        return response.data;
+    }
+
+    static async getEquipmentTransactionsByMonthAndYear(month, year) {
+        const response = await axios.get(`${this.BASE_URL}/equipmentTransactions/by-month-year`, {
+            headers: this.getHeader(),
+            params: {
+                month: month,
+                year: year
+            }
+        });
+        return response.data;
+    }
+
+    static async getEquipmentTransactionById(equipmentTransactionId) {
+        const response = await axios.get(`${this.BASE_URL}/equipmentTransactions/${equipmentTransactionId}`, {
+            headers: this.getHeader()
+        });
         return response.data;
     }
 
