@@ -15,6 +15,8 @@ import EquipmentPage from "./pages/EquipmentPage";
 import AddEditEquipmentPage from "./pages/AddEditEquipmentPage";
 import CheckInEquipmentPage from "./pages/CheckInEquipmentPage";
 import CheckOutEquipmentPage from "./pages/CheckOutEquipmentPage";
+import EquipmentTransactionsPage from "./pages/EquipmentTransactionsPage";
+import EquipmentTransactionDetailsPage from "./pages/EquipmentTransactionDetailsPage";
 
 
 function App() {
@@ -42,6 +44,8 @@ function App() {
 
           <Route path="/checkInEquipment" element={<ProtectedRoute element={<CheckInEquipmentPage/>}/>}/>
           <Route path="/checkOutEquipment" element={<ProtectedRoute element={<CheckOutEquipmentPage/>}/>}/>
+          <Route path="/equipmentTransactions" element={<ProtectedRoute element={<EquipmentTransactionsPage/>}/>}/>
+          <Route path="/equipmentTransactions/:equipmentTransactionId" element={<ProtectedRoute element={<EquipmentTransactionDetailsPage/>}/>}/>
 
           <Route path="/dashboard" element={<ProtectedRoute element={<DashboardPage/>}/>}/>
 
