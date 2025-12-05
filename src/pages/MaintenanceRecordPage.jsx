@@ -7,7 +7,8 @@ import PaginationComponent from "../component/PaginationComponent";
 const MaintenanceRecordPage = () => {
     const [maintenanceRecords, setMaintenanceRecords] = useState([]);
     const [message, setMessage] = useState("");
-    const [navigate] = useNavigate();
+    
+    const navigate = useNavigate();
 
     //pagination Set-up
     const [currentPage, setCurrentPage] = useState(1);
