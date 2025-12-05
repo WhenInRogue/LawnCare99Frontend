@@ -17,6 +17,9 @@ import CheckInEquipmentPage from "./pages/CheckInEquipmentPage";
 import CheckOutEquipmentPage from "./pages/CheckOutEquipmentPage";
 import EquipmentTransactionsPage from "./pages/EquipmentTransactionsPage";
 import EquipmentTransactionDetailsPage from "./pages/EquipmentTransactionDetailsPage";
+import StartMaintenancePage from "./pages/StartMaintenancePage";
+import EndMaintenancePage from "./pages/EndMaintenancePage";
+import MaintenanceRecordPage from "./pages/MaintenanceRecordPage";
 
 
 function App() {
@@ -34,6 +37,9 @@ function App() {
         <Route path="/equipment" element={<AdminRoute element={<EquipmentPage/>}/>}/>
         <Route path="/add-equipment" element={<AdminRoute element={<AddEditEquipmentPage/>}/>}/>
         <Route path="/edit-equipment/:equipmentId" element={<AdminRoute element={<AddEditEquipmentPage/>}/>}/>
+        <Route path="/start-maintenance" element={<ProtectedRoute element={<StartMaintenancePage/>}/>}/>
+        <Route path="/end-maintenance" element={<ProtectedRoute element={<EndMaintenancePage/>}/>}/>
+        <Route path="/maintenanceRecords" element={<ProtectedRoute element={<MaintenanceRecordPage/>}/>}/>
 
 
           {/* ADMIN AND MANAGERS ROUTES */}

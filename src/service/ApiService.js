@@ -296,6 +296,39 @@ export default class ApiService {
 
 
 
+    //Maintenance Records Endpoints
+    static async startMaintenance(body) {
+        const response = await axios.post(`${this.BASE_URL}/maintenance/start`, body, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
+    static async endMaintenance(body) {
+        const response = await axios.post(`${this.BASE_URL}/maintenance/end`, body, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
+    static async getAllMaintenanceRecords() {
+        const response = await axios.get(`${this.BASE_URL}/maintenance/all`, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+    static async getMaintenanceRecordsByEquipment(equipmentId) {
+        const response = await axios.get(`${this.BASE_URL}/maintenance/equipment/${equipmentId}`, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+
+
+
+
     /**AUTHENTICATION CHECKER */
     static logout(){
         this.clearAuth()

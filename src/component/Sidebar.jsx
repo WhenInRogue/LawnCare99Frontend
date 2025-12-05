@@ -22,7 +22,7 @@ const Sidebar = () => {
 
         {isAuth && (
           <li>
-            <Link to="/supplyTransactions">Sup Transactions</Link>
+            <Link to="/supplyTransactions">Supply Usage</Link>
           </li>
         )}
 
@@ -52,7 +52,19 @@ const Sidebar = () => {
 
         {isAuth && (
           <li>
-            <Link to="/equipmentTransactions">Equip Transactions</Link>
+            <Link to="/equipmentTransactions">Equipment Usage</Link>
+          </li>
+        )}
+
+        {isAdmin && (
+          <li>
+            <Link to="/start-maintenance">Start Maintenance</Link>
+          </li>
+        )}
+
+        {isAdmin && (
+          <li>
+            <Link to="/end-maintenance">End Maintenance</Link>
           </li>
         )}
 
