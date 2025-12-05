@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../service/ApiService";
+import BrandMark from "../component/BrandMark";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -15,19 +16,16 @@ const LoginPage = () => {
       const loginData = { email, password };
       const res = await ApiService.loginUser(loginData);
 
-      console.log(res)
-
       if (res.status === 200) {
-        ApiService.saveToken(res.token)
-        ApiService.saveRole(res.role)
-        setMessage(res.message)
-        navigate("/profile")
+        ApiService.saveToken(res.token);
+        ApiService.saveRole(res.role);
+        setMessage(res.message);
+        navigate("/profile");
       }
     } catch (error) {
       showMessage(
         error.response?.data?.message || "Error Logging in a User: " + error
       );
-      console.log(error);
     }
   };
 
@@ -39,32 +37,57 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="auth-container">
-      <h2>Login</h2>
-
-      {message && <p className="message">{message}</p>}
-
-      <form onSubmit={handleLogin}>
-
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
+    <div className="auth-page">
+      <div className="auth-card">
+        <BrandMark
+          orientation="stacked"
+          showTagline
+          tagline="Equipment Inventory & Tracking System"
         />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="auth-tabs">
+          <button className="is-active" type="button">
+            Sign In
+          </button>
+          <button type="button" onClick={() => navigate("/register")}>
+            Register
+          </button>
+        </div>
 
-        <button type="submit">Login</button>
-      </form>
-      <p>Don't have an account? <a href="/register">Register</a></p>
+        {message && <p className="message inline">{message}</p>}
+
+        <form className="auth-form" onSubmit={handleLogin}>
+          <label>
+            Employee ID or Username
+            <input
+              type="text"
+              placeholder="Enter your username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+
+          <label>
+            Password
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+
+          <button type="submit" className="primary-btn">
+            Sign In
+          </button>
+        </form>
+
+        <p className="auth-helper">
+          Demo Credentials: <strong>john.smith / any password</strong>
+        </p>
+      </div>
     </div>
   );
 };

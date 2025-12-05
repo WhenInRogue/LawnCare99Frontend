@@ -1,128 +1,130 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../component/Layout";
 import ApiService from "../service/ApiService";
-import { useNavigate } from "react-router-dom";
+import CheckInTabs from "../component/CheckInTabs";
 
 const CheckInSupplyPage = () => {
-    const [supplies, setSupplies] = useState([]);
-    const [supplyId, setSupplyId] = useState("");
-    const [note, setNote] = useState("");
-    const [quantity, setQuantity] = useState("");
-    const [message, setMessage] = useState("");
+  const [supplies, setSupplies] = useState([]);
+  const [supplyId, setSupplyId] = useState("");
+  const [note, setNote] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [message, setMessage] = useState("");
 
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        const fetchSupplies = async () => {
-            try {
-                const supplyData = await ApiService.getAllSupplies();
-                setSupplies(supplyData.supplies);
-            } catch (error) {
-                showMesage(
-                    error.response?.data?.message || "Error fetching supplies: " + error
-                );
-            }
-        };
-
-        fetchSupplies();
-    }, []);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (!supplyId || !quantity) {
-            showMesage("Please fill in all required fields");
-            return
-        }
-        const body = {
-            supplyId,
-            quantity: parseInt(quantity),
-            note,
-        };
-        console.log(body)
-
-        try {
-            const response = await ApiService.checkInSupply(body);
-            showMesage(response.message);
-            resetForm();
-        } catch (error) {
-            showMesage(
-                error.response?.data?.message || "Error checking in supply: " + error
-            );
-        }
+  useEffect(() => {
+    const fetchSupplies = async () => {
+      try {
+        const supplyData = await ApiService.getAllSupplies();
+        setSupplies(supplyData.supplies);
+      } catch (error) {
+        showMessage(
+          error.response?.data?.message || "Error fetching supplies: " + error
+        );
+      }
     };
 
-    const resetForm = () => {
-        setSupplyId("");
-        setNote("");
-        setQuantity("");
+    fetchSupplies();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!supplyId || !quantity) {
+      showMessage("Please fill in all required fields");
+      return;
+    }
+    const body = {
+      supplyId,
+      quantity: parseInt(quantity, 10),
+      note,
     };
 
-    //Methods to show message or errors
-    const showMesage = (msg) => {
-        setMessage(msg);
-        setTimeout(() => {
-            setMessage("");
-        }, 4000);
-    };
+    try {
+      const response = await ApiService.checkInSupply(body);
+      showMessage(response.message);
+      resetForm();
+    } catch (error) {
+      showMessage(
+        error.response?.data?.message || "Error checking in supply: " + error
+      );
+    }
+  };
 
-    //Navigate to Check-In Equipment Page
-  const navigateToCheckInEquipmentPage = () => {
-    navigate(`/checkInEquipment`);
-  }
+  const resetForm = () => {
+    setSupplyId("");
+    setNote("");
+    setQuantity("");
+  };
 
-    return (
+  const showMessage = (msg) => {
+    setMessage(msg);
+    setTimeout(() => {
+      setMessage("");
+    }, 4000);
+  };
+
+  return (
     <Layout>
-      {message && <div className="message">{message}</div>}
-      <div className="purchase-form-page">
-        <h1>Check-In Supply</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Select supply</label>
+      <div className="checkio-page">
+        <CheckInTabs />
+        {message && <div className="message in-page">{message}</div>}
 
-            <select
-              value={supplyId}
-              onChange={(e) => setSupplyId(e.target.value)}
-              required
-            >
-              <option value="">Select a supply</option>
-              {supplies.map((supply) => (
-                <option key={supply.supplyId} value={supply.supplyId}>
-                  {supply.name}
-                </option>
-              ))}
-            </select>
-          </div>
+        <section className="form-card">
+          <header className="form-card-header">
+            <div>
+              <p className="eyebrow-text">Supplies</p>
+              <h2>Check-In Supply</h2>
+              <p className="subtitle-text">
+                Restock consumables and log any relevant delivery notes.
+              </p>
+            </div>
+          </header>
 
-          <div className="form-group">
-            <label>Note</label>
-            <input
-              type="text"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              required
-            />
-          </div>
+          <form className="stacked-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Select supply</label>
+              <select
+                value={supplyId}
+                onChange={(e) => setSupplyId(e.target.value)}
+                required
+              >
+                <option value="">Select a supply</option>
+                {supplies.map((supply) => (
+                  <option key={supply.supplyId} value={supply.supplyId}>
+                    {supply.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div className="form-group">
-            <label>Quantity</label>
-            <input
-              type="number"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              required
-            />
-          </div>
+            <div className="form-group">
+              <label>Note</label>
+              <input
+                type="text"
+                placeholder="Optional notes..."
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+              />
+            </div>
 
-          <button type="submit">Check-In Supply</button>
-        </form>
+            <div className="form-group">
+              <label>Quantity</label>
+              <input
+                type="number"
+                placeholder="Enter quantity"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+                required
+              />
+            </div>
+
+            <button type="submit" className="primary-btn">
+              Check-In Supply
+            </button>
+          </form>
+        </section>
       </div>
-
-      <div className="checkin-equipment-btn-container">
-        <button onClick={navigateToCheckInEquipmentPage}>Check-In Equipment</button>
-      </div>
-
     </Layout>
-    );
+  );
 };
+
 export default CheckInSupplyPage;

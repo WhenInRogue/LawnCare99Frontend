@@ -1,129 +1,130 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../component/Layout";
 import ApiService from "../service/ApiService";
-import { useNavigate } from "react-router-dom";
+import CheckInTabs from "../component/CheckInTabs";
 
 const CheckOutEquipmentPage = () => {
-    const [equipment, setEquipment] = useState([]);
-    const [equipmentId, setEquipmentId] = useState("");
-    const [note, setNote] = useState("");
-    const [totalHoursInput, setTotalHoursInput] = useState("");
-    const [message, setMessage] = useState("");
+  const [equipment, setEquipment] = useState([]);
+  const [equipmentId, setEquipmentId] = useState("");
+  const [note, setNote] = useState("");
+  const [totalHoursInput, setTotalHoursInput] = useState("");
+  const [message, setMessage] = useState("");
 
-    const navigate = useNavigate();
-
-    useEffect(() => {
-            const fetchEquipment = async () => {
-                try {
-                    const equipmentData = await ApiService.getAllEquipment();
-                    setEquipment(equipmentData.equipments);
-                } catch (error) {
-                    showMesage(
-                        error.response?.data?.message || "Error fetching equipment: " + error
-                    );
-                }
-            };
-
-            fetchEquipment();
-    }, []);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-    
-        if (!equipmentId || !totalHoursInput) {
-            showMesage("Please fill in all required fields");
-            return
-        }
-        const body = {
-            equipmentId,
-            totalHoursInput: parseFloat(totalHoursInput),
-            note,
-        };
-        console.log(body)
-
-        try {
-            const response = await ApiService.checkOutEquipment(body);
-            showMesage(response.message);
-            resetForm();
-        } catch (error) {
-            showMesage(
-                error.response?.data?.message || "Error checking out equipment: " + error
-            );
-        }
+  useEffect(() => {
+    const fetchEquipment = async () => {
+      try {
+        const equipmentData = await ApiService.getAllEquipment();
+        setEquipment(equipmentData.equipments);
+      } catch (error) {
+        showMessage(
+          error.response?.data?.message || "Error fetching equipment: " + error
+        );
+      }
     };
 
-    const resetForm = () => {
-        setEquipmentId("");
-        setNote("");
-        setTotalHoursInput("");
-    };
+    fetchEquipment();
+  }, []);
 
-    //Methods to show message or errors
-    const showMesage = (msg) => {
-        setMessage(msg);
-        setTimeout(() => {
-            setMessage("");
-        }, 4000);
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    //Navigate to Check-Out Supply Page
-    const navigateToCheckOutSupplyPage = () => {
-    navigate(`/checkOutSupply`);
+    if (!equipmentId || !totalHoursInput) {
+      showMessage("Please fill in all required fields");
+      return;
     }
+    const body = {
+      equipmentId,
+      totalHoursInput: parseFloat(totalHoursInput),
+      note,
+    };
 
-    return (
+    try {
+      const response = await ApiService.checkOutEquipment(body);
+      showMessage(response.message);
+      resetForm();
+    } catch (error) {
+      showMessage(
+        error.response?.data?.message || "Error checking out equipment: " + error
+      );
+    }
+  };
+
+  const resetForm = () => {
+    setEquipmentId("");
+    setNote("");
+    setTotalHoursInput("");
+  };
+
+  const showMessage = (msg) => {
+    setMessage(msg);
+    setTimeout(() => {
+      setMessage("");
+    }, 4000);
+  };
+
+  return (
     <Layout>
-      {message && <div className="message">{message}</div>}
-      <div className="purchase-form-page">
-        <h1>Check-Out Equipment</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Select equipment</label>
+      <div className="checkio-page">
+        <CheckInTabs />
+        {message && <div className="message in-page">{message}</div>}
 
-            <select
-              value={equipmentId}
-              onChange={(e) => setEquipmentId(e.target.value)}
-              required
-            >
-              <option value="">Select equipment</option>
-              {equipment.map((equip) => (
-                <option key={equip.equipmentId} value={equip.equipmentId}>
-                  {equip.name}
-                </option>
-              ))}
-            </select>
-          </div>
+        <section className="form-card">
+          <header className="form-card-header">
+            <div>
+              <p className="eyebrow-text">Equipment</p>
+              <h2>Check-Out Equipment</h2>
+              <p className="subtitle-text">
+                Release a piece of equipment for field usage and capture the total
+                hours planned.
+              </p>
+            </div>
+          </header>
+          <form className="stacked-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Select equipment</label>
+              <select
+                value={equipmentId}
+                onChange={(e) => setEquipmentId(e.target.value)}
+                required
+              >
+                <option value="">Select equipment</option>
+                {equipment.map((equip) => (
+                  <option key={equip.equipmentId} value={equip.equipmentId}>
+                    {equip.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div className="form-group">
-            <label>Note</label>
-            <input
-              type="text"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              required
-            />
-          </div>
+            <div className="form-group">
+              <label>Note</label>
+              <input
+                type="text"
+                placeholder="Optional notes..."
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+              />
+            </div>
 
-          <div className="form-group">
-            <label>Total Hours</label>
-            <input
-              type="number"
-              value={totalHoursInput}
-              onChange={(e) => setTotalHoursInput(e.target.value)}
-              required
-            />
-          </div>
+            <div className="form-group">
+              <label>Total Hours</label>
+              <input
+                type="number"
+                placeholder="Enter total hours"
+                value={totalHoursInput}
+                onChange={(e) => setTotalHoursInput(e.target.value)}
+                required
+              />
+            </div>
 
-          <button type="submit">Check-Out Equipment</button>
-        </form>
+            <button type="submit" className="primary-btn">
+              Check-Out Equipment
+            </button>
+          </form>
+        </section>
       </div>
-
-      <div className="checkin-equipment-btn-container">
-        <button onClick={navigateToCheckOutSupplyPage}>Check-Out Supply</button>
-      </div>
-      
     </Layout>
-    );
-
+  );
 };
+
 export default CheckOutEquipmentPage;

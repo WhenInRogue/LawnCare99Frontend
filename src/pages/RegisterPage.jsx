@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ApiService from "../service/ApiService";
+import BrandMark from "../component/BrandMark";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -16,17 +17,15 @@ const RegisterPage = () => {
     try {
       const registerData = { name, email, password, phoneNumber };
       await ApiService.registerUser(registerData);
-      setMessage("Registration Successfull");
+      setMessage("Registration successful");
       navigate("/login");
     } catch (error) {
       showMessage(
         error.response?.data?.message || "Error Registering a User: " + error
       );
-      console.log(error);
     }
   };
 
-  //four second timeout
   const showMessage = (msg) => {
     setMessage(msg);
     setTimeout(() => {
@@ -35,47 +34,77 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="auth-container">
-      <h2>Register</h2>
-
-      {message && <p className="message">{message}</p>}
-
-      <form onSubmit={handleRegister}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
+    <div className="auth-page">
+      <div className="auth-card">
+        <BrandMark
+          orientation="stacked"
+          showTagline
+          tagline="Equipment Inventory & Tracking System"
         />
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <div className="auth-tabs">
+          <button type="button" onClick={() => navigate("/login")}>
+            Sign In
+          </button>
+          <button className="is-active" type="button">
+            Register
+          </button>
+        </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        {message && <p className="message inline">{message}</p>}
 
-        <input
-          type="text"
-          placeholder="Phone Number"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          required
-        />
+        <form className="auth-form" onSubmit={handleRegister}>
+          <label>
+            Full Name
+            <input
+              type="text"
+              placeholder="John Smith"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </label>
 
-        <button type="submit">Register</button>
-      </form>
-      <p>Already have an account? <a href="/login">Login</a></p>
+          <label>
+            Phone Number
+            <input
+              type="tel"
+              placeholder="(555) 123-4567"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              required
+            />
+          </label>
+
+          <label>
+            Email
+            <input
+              type="email"
+              placeholder="john.smith@99lawncare.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+
+          <label>
+            Password
+            <input
+              type="password"
+              placeholder="At least 6 characters"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+
+          <button type="submit" className="primary-btn">
+            Create Account
+          </button>
+        </form>
+
+        <p className="auth-helper">Employee ID will be automatically generated</p>
+      </div>
     </div>
   );
 };
