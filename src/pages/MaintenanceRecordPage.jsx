@@ -101,6 +101,21 @@ const MaintenanceRecordPage = () => {
                         </option>
                     ))}
                 </select>
+
+                <div className="maintenance-record-actions">
+                    <button
+                        className="maintenance-action-btn start"
+                        onClick={() => navigate("/start-maintenance")}
+                    >
+                        Start Maintenance
+                    </button>
+                    <button
+                        className="maintenance-action-btn end"
+                        onClick={() => navigate("/end-maintenance")}
+                    >
+                        End Maintenance
+                    </button>
+                </div>
             </div>
         </div>
 

@@ -764,6 +764,50 @@ button[type="submit"]:hover {
   margin-bottom: 20px;
 }
 
+.transactions-header-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.transactions-header-actions select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5f5;
+}
+
+.maintenance-record-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.maintenance-action-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+}
+
+.maintenance-action-btn.start {
+  background-color: #008080;
+}
+
+.maintenance-action-btn.start:hover {
+  background-color: #2f4f4f;
+}
+
+.maintenance-action-btn.end {
+  background-color: #dc3545;
+}
+
+.maintenance-action-btn.end:hover {
+  background-color: #a5202e;
+}
+
 .transaction-search {
   display: flex;
   gap: 10px;
