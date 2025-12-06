@@ -3,6 +3,8 @@ import Layout from "../component/Layout";
 import ApiService from "../service/ApiService";
 import { useNavigate } from "react-router-dom";
 
+const MAINTENANCE_STATUS = "MAINTENANCE";
+
 const EndMaintenancePage = () => {
     const [equipment, setEquipment] = useState([]);
     const [equipmentId, setEquipmentId] = useState("");
@@ -15,16 +17,20 @@ const EndMaintenancePage = () => {
 
     useEffect(() => {
         const fetchEquipment = async () => {
-                try {
-                    const equipmentData = await ApiService.getAllEquipment();
-                    setEquipment(equipmentData.equipments);
-                } catch (error) {
-                    showMesage(
-                        error.response?.data?.message || "Error fetching equipment: " + error
+            try {
+                const equipmentData = await ApiService.getAllEquipment();
+                const maintenanceEquipment =
+                    (equipmentData.equipments || []).filter(
+                        (equip) => equip.equipmentStatus === MAINTENANCE_STATUS
                     );
-                }
-            };
-            fetchEquipment();
+                setEquipment(maintenanceEquipment);
+            } catch (error) {
+                showMesage(
+                    error.response?.data?.message || "Error fetching equipment: " + error
+                );
+            }
+        };
+        fetchEquipment();
     }, []);
 
     const handleSubmit = async (e) => {
