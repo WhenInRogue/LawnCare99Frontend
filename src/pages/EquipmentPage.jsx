@@ -104,7 +104,10 @@ const EquipmentPage = () => {
             {equipment && (
                 <div className="product-list">
                     {equipment.map((equipment) => (
-                      <div key={equipment.equipmentId} className="product-item">
+                      <div
+                        key={equipment.equipmentId}
+                        className={`product-item${equipment.maintenanceDue ? " maintenance-due" : ""}`}
+                      >
                           <div className="product-info">
                             <h3 className="name">{equipment.name}</h3>
                             <p className="totalHours">Total Hours: {equipment.totalHours}</p>
