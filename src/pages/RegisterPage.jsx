@@ -53,6 +53,7 @@ const RegisterPage = () => {
           type="email"
           placeholder="Email"
           value={email}
+          pattern=".+@.+\..+"
           onChange={(e) => setEmail(e.target.value)}
           required
         />
@@ -66,10 +67,19 @@ const RegisterPage = () => {
         />
 
         <input
-          type="text"
+          type="tel"
+          inputMode="numeric"
+          pattern="\d{9,12}"
           placeholder="Phone Number"
           value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+          minLength={9}
+          maxLength={12}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (/^\d{0,12}$/.test(value)) {
+              setPhoneNumber(value);
+            }
+          }}
           required
         />
 

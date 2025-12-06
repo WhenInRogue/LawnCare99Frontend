@@ -58,18 +58,6 @@ const Sidebar = () => {
 
         {isAdmin && (
           <li>
-            <Link to="/start-maintenance">Start Maintenance</Link>
-          </li>
-        )}
-
-        {isAdmin && (
-          <li>
-            <Link to="/end-maintenance">End Maintenance</Link>
-          </li>
-        )}
-
-        {isAdmin && (
-          <li>
             <Link to="/maintenanceRecords">Maintenance</Link>
           </li>
         )}
