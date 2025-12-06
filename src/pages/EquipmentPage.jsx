@@ -4,7 +4,7 @@ import ApiService from "../service/ApiService";
 import { useNavigate } from "react-router-dom";
 import PaginationComponent from "../component/PaginationComponent";
 
-const equipmentStatusOptions = ["AVAILABLE", "IN_USE", "MAINTENANCE", "RETIRED"];
+const equipmentStatusOptions = ["AVAILABLE", "IN_USE", "MAINTENANCE"];
 
 const EquipmentPage = () => {
     const [equipment, setEquipment] = useState([]);
@@ -85,7 +85,7 @@ const EquipmentPage = () => {
                             setCurrentPage(1);
                         }}
                     >
-                        <option value="">All Statuses</option>
+                        <option value="">All</option>
                         {equipmentStatusOptions.map((equipmentStatus) => (
                             <option key={equipmentStatus} value={equipmentStatus}>
                                 {equipmentStatus.replace("_", " ")}

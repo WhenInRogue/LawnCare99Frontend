@@ -176,7 +176,7 @@ export default class ApiService {
     const config = { headers: this.getHeader() };
 
     if (equipmentStatus) {
-        config.params = { status: equipmentStatus };
+        config.params = { equipmentStatus: equipmentStatus };
     }
 
     const response = await axios.get(`${this.BASE_URL}/equipment/all`, config)

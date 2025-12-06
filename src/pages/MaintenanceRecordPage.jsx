@@ -61,7 +61,7 @@ const MaintenanceRecordPage = () => {
                     <tr>
                         <th>Maintenance Performed</th>
                         <th>Note</th>
-                        <th>Total Hours When Maintenance Was Performed</th>
+                        <th>Total Hours When Performed</th>
                         <th>Date</th>
                     </tr>
                 </thead>
