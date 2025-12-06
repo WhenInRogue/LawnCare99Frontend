@@ -66,10 +66,17 @@ const RegisterPage = () => {
         />
 
         <input
-          type="text"
+          type="tel"
+          inputMode="numeric"
+          pattern="\d+"
           placeholder="Phone Number"
           value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (/^\d*$/.test(value)) {
+              setPhoneNumber(value);
+            }
+          }}
           required
         />
 
