@@ -70,7 +70,7 @@ const Sidebar = () => {
 
         {isAdmin && (
           <li>
-            <Link to="/maintenanceRecords">Maintenance Records</Link>
+            <Link to="/maintenanceRecords">Maintenance</Link>
           </li>
         )}
 
