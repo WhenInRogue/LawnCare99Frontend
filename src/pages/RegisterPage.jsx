@@ -53,6 +53,7 @@ const RegisterPage = () => {
           type="email"
           placeholder="Email"
           value={email}
+          pattern=".+@.+\..+"
           onChange={(e) => setEmail(e.target.value)}
           required
         />
