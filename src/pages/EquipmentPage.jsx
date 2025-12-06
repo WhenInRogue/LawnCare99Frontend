@@ -110,6 +110,8 @@ const EquipmentPage = () => {
                             <p className="totalHours">Total Hours: {equipment.totalHours}</p>
                             <p className="maintenanceIntervalHours">Maintenance Interval: {equipment.maintenanceIntervalHours}</p>
                             <p className="status">Current Status: {equipment.equipmentStatus}</p>
+                            <p className="maintenanceDue">Is Maintenance Due?: {equipment.maintenanceDue ? "Yes" : "No"}</p>
+                            <p className="nextMaintenanceDueHours">Next Maintenance Due At: {equipment.nextMaintenanceDueHours}</p>
                             <p className="lastCheckOutTime">Last Check-Out: {equipment.lastCheckOutTime}</p>
                           </div>
 
