@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Layout from "../component/Layout";
 import ApiService from "../service/ApiService";
 import { useNavigate } from "react-router-dom";
 import PaginationComponent from "../component/PaginationComponent";
 
 const EquipmentPage = () => {
+    const [allEquipment, setAllEquipment] = useState([]);
     const [equipment, setEquipment] = useState([]);
     const [message, setMessage] = useState("");
+    const [statusFilter, setStatusFilter] = useState("ALL");
 
     const navigate = useNavigate();
 
@@ -21,23 +23,47 @@ const EquipmentPage = () => {
                 const equipmentData = await ApiService.getAllEquipment();
 
                 if (equipmentData.status === 200) {
-                    setTotalPages(Math.ceil(equipmentData.equipments.length / itemsPerPage));
-
-                    setEquipment(
-                        equipmentData.equipments.slice(
-                            (currentPage - 1) * itemsPerPage,
-                            currentPage * itemsPerPage
-                        )
-                    );
+                    setAllEquipment(equipmentData.equipments);
+                }
+            } catch (error) {
+                showMessage(
+                    error.response?.data?.message || "Error Getting Equipment: " + error
+                );
             }
-        } catch (error) {
-            showMessage(
-                error.response?.data?.message || "Error Getting Equipment: " + error
-            );
-        }
-    };
-    getEquipment();
-    }, [currentPage]);
+        };
+        getEquipment();
+    }, []);
+
+    useEffect(() => {
+        const filteredEquipment =
+            statusFilter === "ALL"
+                ? allEquipment
+                : allEquipment.filter(
+                      (equipmentItem) => equipmentItem.equipmentStatus === statusFilter
+                  );
+
+        const calculatedTotalPages = Math.ceil(filteredEquipment.length / itemsPerPage) || 0;
+        setTotalPages(calculatedTotalPages);
+
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const paginatedEquipment = filteredEquipment.slice(
+            startIndex,
+            startIndex + itemsPerPage
+        );
+
+        setEquipment(paginatedEquipment);
+    }, [allEquipment, statusFilter, currentPage]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [statusFilter]);
+
+    const statusOptions = useMemo(() => {
+        const uniqueStatuses = Array.from(
+            new Set(allEquipment.map((equipmentItem) => equipmentItem.equipmentStatus).filter(Boolean))
+        );
+        return uniqueStatuses.sort();
+    }, [allEquipment]);
 
     //Delete Equipment
     const handleDeleteEquipment = async (equipmentId) => {
@@ -72,12 +98,29 @@ const EquipmentPage = () => {
         <div className="product-page">
             <div className="product-header">
                 <h1>Equipment</h1>
-                <button
-                  className="add-product-btn"
-                  onClick={() => navigate("/add-equipment")}
-                  >
-                    Add Equipment
-                  </button>
+                <div className="product-actions-row">
+                    <div className="product-filter">
+                        <label htmlFor="status-filter">Filter by status</label>
+                        <select
+                            id="status-filter"
+                            value={statusFilter}
+                            onChange={(e) => setStatusFilter(e.target.value)}
+                        >
+                            <option value="ALL">All statuses</option>
+                            {statusOptions.map((statusOption) => (
+                                <option key={statusOption} value={statusOption}>
+                                    {statusOption}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <button
+                      className="add-product-btn"
+                      onClick={() => navigate("/add-equipment")}
+                      >
+                        Add Equipment
+                      </button>
+                </div>
             </div>
 
             {equipment && (
