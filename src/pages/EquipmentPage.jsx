@@ -104,7 +104,8 @@ const EquipmentPage = () => {
             {equipment && (
                 <div className="product-list">
                     {equipment.map((equipment) => (
-                      <div key={equipment.equipmentId} className="product-item">
+                      <div
+                        key={equipment.equipmentId}className={`product-item${equipment.maintenanceDue ? " maintenance-due" : ""}`}>
                           <div className="product-info">
                             <h3 className="name">{equipment.name}</h3>
                             <p className="totalHours">Total Hours: {equipment.totalHours}</p>
@@ -112,7 +113,7 @@ const EquipmentPage = () => {
                             <p className="status">Current Status: {equipment.equipmentStatus}</p>
                             <p className="maintenanceDue">Is Maintenance Due?: {equipment.maintenanceDue ? "Yes" : "No"}</p>
                             <p className="nextMaintenanceDueHours">Next Maintenance Due At: {equipment.nextMaintenanceDueHours}</p>
-                            <p className="lastCheckOutTime">Last Check-Out: {equipment.lastCheckOutTime}</p>
+                            <p className="lastCheckedOutBy">Last Checked Out By: {equipment.lastCheckedOutBy || "N/A"}</p>
                           </div>
 
                           <div className="product-actions">
