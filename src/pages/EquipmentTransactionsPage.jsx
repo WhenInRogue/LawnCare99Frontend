@@ -95,7 +95,7 @@ const EquipmentTransactionsPage = () => {
                         <tr key={equipmentTransaction.equipmentTransactionId}>
                             <td>{equipmentTransaction.equipmentTransactionType}</td>
                             <td>{equipmentTransaction.totalHoursInput}</td>
-                            <td>{new Date(equipmentTransaction.createdAt).toLocaleString()}</td>
+                            <td>{new Date(equipmentTransaction.timestamp).toLocaleString()}</td>
                             <td>{equipmentTransaction.note}</td>
 
                             <td>

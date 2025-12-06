@@ -172,11 +172,15 @@ export default class ApiService {
         return response.data;
     }
 
-    static async getAllEquipment() {
-        const response = await axios.get(`${this.BASE_URL}/equipment/all`, {
-            headers: this.getHeader()
-        })
-        return response.data;
+    static async getAllEquipment(equipmentStatus) {
+    const config = { headers: this.getHeader() };
+
+    if (equipmentStatus) {
+        config.params = { status: equipmentStatus };
+    }
+
+    const response = await axios.get(`${this.BASE_URL}/equipment/all`, config)
+    return response.data;
     }
 
 

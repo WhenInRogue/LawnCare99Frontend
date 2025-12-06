@@ -4,40 +4,44 @@ import ApiService from "../service/ApiService";
 import { useNavigate } from "react-router-dom";
 import PaginationComponent from "../component/PaginationComponent";
 
+const equipmentStatusOptions = ["AVAILABLE", "IN_USE", "MAINTENANCE", "RETIRED"];
+
 const EquipmentPage = () => {
     const [equipment, setEquipment] = useState([]);
     const [message, setMessage] = useState("");
+    const [equipmentStatusFilter, setEquipmentStatusFilter] = useState("");
 
     const navigate = useNavigate();
 
     //Pagination Set-Up
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const itemsPerPage = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const itemsPerPage = 10;
 
     useEffect(() => {
         const getEquipment = async () => {
             try {
-                const equipmentData = await ApiService.getAllEquipment();
+                const equipmentData = await ApiService.getAllEquipment(equipmentStatusFilter || undefined);
 
                 if (equipmentData.status === 200) {
-                    setTotalPages(Math.ceil(equipmentData.equipments.length / itemsPerPage));
+                    const records = equipmentData.equipments || [];
+                    setTotalPages(Math.ceil(records.length / itemsPerPage));
 
                     setEquipment(
-                        equipmentData.equipments.slice(
+                        records.slice(
                             (currentPage - 1) * itemsPerPage,
                             currentPage * itemsPerPage
                         )
                     );
+                }
+            } catch (error) {
+                showMessage(
+                    error.response?.data?.message || "Error Getting Equipment: " + error
+                );
             }
-        } catch (error) {
-            showMessage(
-                error.response?.data?.message || "Error Getting Equipment: " + error
-            );
-        }
-    };
-    getEquipment();
-    }, [currentPage]);
+        };
+        getEquipment();
+    }, [currentPage, equipmentStatusFilter]);
 
     //Delete Equipment
     const handleDeleteEquipment = async (equipmentId) => {
@@ -72,12 +76,29 @@ const EquipmentPage = () => {
         <div className="product-page">
             <div className="product-header">
                 <h1>Equipment</h1>
-                <button
-                  className="add-product-btn"
-                  onClick={() => navigate("/add-equipment")}
-                  >
-                    Add Equipment
-                  </button>
+                <div className="product-header-actions">
+                    <select
+                        className="status-filter"
+                        value={equipmentStatusFilter}
+                        onChange={(e) => {
+                            setEquipmentStatusFilter(e.target.value);
+                            setCurrentPage(1);
+                        }}
+                    >
+                        <option value="">All Statuses</option>
+                        {equipmentStatusOptions.map((equipmentStatus) => (
+                            <option key={equipmentStatus} value={equipmentStatus}>
+                                {equipmentStatus.replace("_", " ")}
+                            </option>
+                        ))}
+                    </select>
+                    <button
+                        className="add-product-btn"
+                        onClick={() => navigate("/add-equipment")}
+                    >
+                        Add Equipment
+                    </button>
+                </div>
             </div>
 
             {equipment && (

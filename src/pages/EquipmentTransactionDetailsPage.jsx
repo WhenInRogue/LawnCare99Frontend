@@ -71,7 +71,7 @@ const EquipmentTransactionDetailsPage = () => {
                 <p>Email: {equipmentTransaction.user.email}</p>
                 <p>Phone Number: {equipmentTransaction.user.phoneNumber}</p>
                 <p>Role: {equipmentTransaction.user.role}</p>
-                <p>Created At: {new Date(equipmentTransaction.createdAt).toLocaleString()}</p>
+                <p>Created At: {new Date(equipmentTransaction.timestamp).toLocaleString()}</p>
            </div>
 
 
