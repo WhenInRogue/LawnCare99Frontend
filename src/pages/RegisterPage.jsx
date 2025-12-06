@@ -68,12 +68,14 @@ const RegisterPage = () => {
         <input
           type="tel"
           inputMode="numeric"
-          pattern="\d+"
+          pattern="\d{9,12}"
           placeholder="Phone Number"
           value={phoneNumber}
+          minLength={9}
+          maxLength={12}
           onChange={(e) => {
             const value = e.target.value;
-            if (/^\d*$/.test(value)) {
+            if (/^\d{0,12}$/.test(value)) {
               setPhoneNumber(value);
             }
           }}
